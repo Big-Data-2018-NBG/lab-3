@@ -18,6 +18,10 @@ class MRMatrixReduce(MRJob):
 
     def mapper_one(self, _, line):
 
+        x = line.split()
+        if len(x) == 2:
+            return
+
         i,j,val = line.split()
         filename = os.environ['map_input_file']
 

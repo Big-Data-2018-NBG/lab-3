@@ -1,7 +1,7 @@
 import random
 
-rows = 5
-cols = 8
+rows = 2
+cols = 2
 
 file = open('matrix2.txt', 'w+')
 file.write("%d %d\r\n" % (rows, cols))
