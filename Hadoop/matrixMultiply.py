@@ -21,13 +21,15 @@ class MRMatrixReduce(MRJob):
         i,j,val = line.split()
         filename = os.environ['map_input_file']
 
-
+        print(filename)
         if filename == 'matrix1.txt':
             yield j, ('A', i, val)
+            print(j, ('A', i, val))
 
 
         if filename =='matrix2.txt':
             yield i,('B',j,val)
+            print(i,('B',j,val))
 
 
 
@@ -54,18 +56,9 @@ class MRMatrixReduce(MRJob):
 
 
 
-    # def combiner(self, word, counts):
-    #     yield (word, sum(counts))
-    #
-    # def reducer(self, word, counts):
-    #     yield (word, sum(counts))
-
-
-
 if __name__ == '__main__':
 
     MRMatrixReduce.run()
 
 
 
-# https://github.com/uchicago-cs/cmsc12300/blob/master/examples/data_analysis/src/cs123/mrjob/matrixmult_2pass.py
