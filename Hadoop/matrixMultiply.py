@@ -3,7 +3,7 @@ from mrjob.step import MRStep
 
 import re
 import os
-
+import time
 WORD_RE = re.compile(r"[\w']+")
 
 
@@ -25,22 +25,21 @@ class MRMatrixReduce(MRJob):
         i,j,val = line.split()
         filename = os.environ['map_input_file']
 
-        print(filename)
+        # print(filename)
         if filename == 'matrix1.txt':
             yield j, ('A', i, val)
-            print(j, ('A', i, val))
+            # print(j, ('A', i, val))
 
 
         if filename =='matrix2.txt':
             yield i,('B',j,val)
-            print(i,('B',j,val))
+            # print(i,('B',j,val))
 
 
 
     def reducer_one(self, j, values):
         list1 = []
         list2 = []
-
         for val in values:
             if val[0] == 'A':
                 list1.append(val)
@@ -61,8 +60,9 @@ class MRMatrixReduce(MRJob):
 
 
 if __name__ == '__main__':
-
+    start = time.time()
     MRMatrixReduce.run()
-
+    end = time.time()
+    print(end-start)
 
 

@@ -1,10 +1,9 @@
 from matrixSize import getDimenstions
 from mrjob.job import MRJob
-from mrjob.step import MRStep
 
 import re
 import os
-
+import time
 
 WORD_RE = re.compile(r"[\w']+")
 matrixMDim = getDimenstions('matrix1.txt')
@@ -32,13 +31,13 @@ class MRMatrixReduce(MRJob):
         if filename == 'matrix1.txt':
             matrixAList.append((row, col, value))
             for x in range(k):
-                # print((row,x),('M',col,value))
+                print((row,x),('M',col,value))
                 yield (row,x),('M',col,value)
 
         if filename == 'matrix2.txt':
             matrixBList.append((row, col, value))
             for x in range(i):
-                # print((x,col),('N',row,value))
+                print((x,col),('N',row,value))
                 yield (x,col),('N',row,value)
 
 
@@ -57,17 +56,14 @@ class MRMatrixReduce(MRJob):
         for x in range(0,j):
            listAns.append(listM[x] * listN[x])
 
-
-
         yield key, sum(listAns)
 
 
-
-
-
 if __name__ == '__main__':
-
+    start = time.time()
     MRMatrixReduce.run()
+    end = time.time()
+    print(end-start)
 
 
 
